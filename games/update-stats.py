@@ -49,18 +49,7 @@ def stats(csv, winner):
     ##################################################################################
     # CSV doesn't exist
     if not path.exists(file_csv):
-
-        if winner == "robot":
-            robot_csv.append(1)
-            human_csv.append(0)
-        else:
-            robot_csv.append(0)
-            human_csv.append(1)
-        date_csv.append(date_day)
-
-        csv_file = {'robot': robot_csv, 'human': human_csv, 'date': date_csv}
-        df = pd.DataFrame(csv_file)
-        df.to_csv(file_csv, index=False, header=None)
+        print("CSV doesn't exist !")
 
 if sys.argv[1] == "qpokemon":
   stats(csv="stats/qpokemon_results.csv", winner=sys.argv[2])
