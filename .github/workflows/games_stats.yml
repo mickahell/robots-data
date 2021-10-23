@@ -15,7 +15,7 @@ on:
 
 jobs:
   update-stats:
-    name: Update qpokemon stats
+    name: Update ${{ github.event.client_payload.game }} stats
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
