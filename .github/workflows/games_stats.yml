@@ -4,7 +4,7 @@ on:
   repository_dispatch:
     types: [games-stats]
     inputs:
-      games:
+      game:
         description: 'Game to update stats'
         required: true
         default: ''
@@ -23,5 +23,5 @@ jobs:
         fetch-depth: 0 # otherwise, there would be errors pushing refs to the destination repository.
     - name: Create local changes
       run: |
-        echo "COUCOUUUUUUU"
+        echo "COUCOUUUUUUU ${{ github.event.inputs.game }} ${{ github.event.inputs.winner }}"
         
