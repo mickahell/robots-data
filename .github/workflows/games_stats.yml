@@ -16,7 +16,7 @@ on:
 jobs:
   update-stats:
     name: Update ${{ github.event.client_payload.game }} stats
-    concurrency: ci-${{ github.event.client_payload.game }}
+    concurrency: ci-updatecsv
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
