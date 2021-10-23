@@ -23,5 +23,5 @@ jobs:
         fetch-depth: 0 # otherwise, there would be errors pushing refs to the destination repository.
     - name: Create local changes
       run: |
-        echo "COUCOUUUUUUU ${{ github.event.inputs.game }} ${{ github.event.inputs.winner }}"
+        echo "COUCOUUUUUUU ${{ github.event.client_payload.game }} ${{ github.event.client_payload.winner }}"
         
