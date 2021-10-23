@@ -33,6 +33,6 @@ jobs:
     - name: Create local changes
       run: |
         cd games
-        echo "COUCOUUUUUUU ${{ github.event.client_payload.game }} ${{ github.event.client_payload.winner }}"
         python update-stats.py "${{ github.event.client_payload.game }}" "${{ github.event.client_payload.winner }}"
+        cat stats/*
         
