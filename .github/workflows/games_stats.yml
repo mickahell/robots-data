@@ -21,6 +21,15 @@ jobs:
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0 # otherwise, there would be errors pushing refs to the destination repository.
+    - name: Set up Python ${{ env.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: "3.9"
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install panda
+        
     - name: Create local changes
       run: |
         echo "COUCOUUUUUUU ${{ github.event.client_payload.game }} ${{ github.event.client_payload.winner }}"
