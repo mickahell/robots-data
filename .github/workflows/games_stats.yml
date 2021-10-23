@@ -30,7 +30,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install pandas
         
-    - name: Create local changes
+    - name: Update csv
       run: |
         cd games
         python update-stats.py "${{ github.event.client_payload.game }}" "${{ github.event.client_payload.winner }}"
