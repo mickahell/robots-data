@@ -14,7 +14,7 @@ on:
         default: ''
 
 jobs:
-  qpokemon:
+  update-stats:
     name: Update qpokemon stats
     runs-on: ubuntu-latest
     steps:
@@ -34,5 +34,8 @@ jobs:
       run: |
         cd games
         python update-stats.py "${{ github.event.client_payload.game }}" "${{ github.event.client_payload.winner }}"
-        cat stats/*
+        
+    - uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: Update stats for ${{ github.event.client_payload.game }}
         
