@@ -1,0 +1,27 @@
+name: Manual workflow
+
+on:
+  repository_dispatch:
+    types: [games-stats]
+    inputs:
+      games:
+        description: 'Game to update stats'
+        required: true
+        default: ''
+      winner:
+        description: 'Winner of the game'
+        required: true
+        default: ''
+
+jobs:
+  qpokemon:
+    name: Update qpokemon stats
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0 # otherwise, there would be errors pushing refs to the destination repository.
+    - name: Create local changes
+      run: |
+        echo "COUCOUUUUUUU"
+        
