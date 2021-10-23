@@ -51,6 +51,7 @@ def stats(csv, winner):
     if not path.exists(file_csv):
         print("CSV doesn't exist !")
 
+        
 if sys.argv[1] == "qpokemon":
   stats(csv="stats/qpokemon_results.csv", winner=sys.argv[2])
 if sys.argv[1] == "qnim":
