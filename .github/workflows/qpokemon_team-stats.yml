@@ -1,22 +1,22 @@
-name: Stats games
+name: Qpokemon team stats
 
 on:
   repository_dispatch:
-    types: [games-stats]
+    types: [qpokemon-team-stats]
     inputs:
-      game:
-        description: 'Game to update stats'
-        required: true
-        default: ''
       winner:
-        description: 'Winner of the game'
+        description: 'Winner team'
         required: true
         default: ''
-        
+      looser:
+        description: 'Looser team'
+        required: true
+        default: ''
+
 jobs:
   update-stats:
-    name: Update ${{ github.event.client_payload.game }} stats
-    concurrency: ci-${{ github.event.client_payload.game }}
+    name: Update Qpokemon team stats
+    concurrency: ci-qpokemon-team
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -30,15 +30,23 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install pandas
-        
+
     - name: Update csv
       run: |
         cd games
-        python update-stats.py "${{ github.event.client_payload.game }}" "${{ github.event.client_payload.winner }}"
-        
+
+        declare -a win=${{ github.event.client_payload.winner }}
+        for i in "${win[@]}"; do
+          python qpokemon_team-stats.py "$i" "yes"
+        done
+
+        declare -a loo=${{ github.event.client_payload.looser }}
+        for i in "${loo[@]}"; do
+          python qpokemon_team-stats.py "$i" "no"
+        done
+
     - name: Pull modif
       run: git pull
     - uses: stefanzweifel/git-auto-commit-action@v4
       with:
         commit_message: Update stats for ${{ github.event.client_payload.game }}
-        
