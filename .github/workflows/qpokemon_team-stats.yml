@@ -33,7 +33,7 @@ jobs:
 
     - name: preview
       run: |
-        for i in "${{ github.event.client_payload.winner[@] }}"; do
+        for i in "${{ github.event.client_payload.winner }}"; do
           echo "$i"
         done
 
