@@ -33,7 +33,7 @@ jobs:
 
     - name: preview
       run: |
-        IFS=';' read -ra preview <<< "${{ join(github.event.client_payload.winner, ',') }}"
+        IFS=',' read -ra preview <<< "${{ join(github.event.client_payload.winner, ',') }}"
         for i in "${preview[@]}"; do
           echo "$i"
         done
