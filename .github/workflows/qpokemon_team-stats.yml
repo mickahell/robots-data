@@ -7,11 +7,11 @@ on:
       winner:
         description: 'Winner team'
         required: true
-        default: ''
+        default: [""]
       looser:
         description: 'Looser team'
         required: true
-        default: ''
+        default: [""]
 
 jobs:
   update-stats:
@@ -33,7 +33,7 @@ jobs:
 
     - name: preview
       run: |
-        for i in "${{ github.event.client_payload.winner }}"; do
+        for i in "${{ join(github.event.client_payload.winner, ',') }}"; do
           echo "$i"
         done
 
