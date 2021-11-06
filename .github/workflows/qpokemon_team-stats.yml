@@ -31,23 +31,16 @@ jobs:
         python -m pip install --upgrade pip
         pip install pandas
 
-    - name: preview
-      run: |
-        IFS=',' read -ra preview <<< "${{ join(github.event.client_payload.winner, ',') }}"
-        for i in "${preview[@]}"; do
-          echo "$i"
-        done
-
     - name: Update csv
       run: |
         cd games
 
-        declare -a win=${{ join(github.event.client_payload.winner, ',') }}
+        IFS=',' read -ra win <<< "${{ join(github.event.client_payload.winner, ',') }}"
         for i in "${win[@]}"; do
           python qpokemon_team-stats.py "$i" "yes"
         done
 
-        declare -a loo=${{ github.event.client_payload.looser }}
+        IFS=',' read -ra loo <<< "${{ join(github.event.client_payload.looser, ',') }}"
         for i in "${loo[@]}"; do
           python qpokemon_team-stats.py "$i" "no"
         done
