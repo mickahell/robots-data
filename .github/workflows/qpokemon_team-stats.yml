@@ -7,11 +7,11 @@ on:
       winner:
         description: 'Winner team'
         required: true
-        default: [""]
+        default: ''
       looser:
         description: 'Looser team'
         required: true
-        default: [""]
+        default: ''
 
 jobs:
   update-stats:
