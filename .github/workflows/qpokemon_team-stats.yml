@@ -33,7 +33,8 @@ jobs:
 
     - name: preview
       run: |
-        for i in "${{ join(github.event.client_payload.winner, ',') }}"; do
+        IFS=';' read -ra preview <<< "${{ join(github.event.client_payload.winner, ',') }}"
+        for i in "${preview[@]}"; do
           echo "$i"
         done
 
@@ -41,7 +42,7 @@ jobs:
       run: |
         cd games
 
-        declare -a win=${{ github.event.client_payload.winner }}
+        declare -a win=${{ join(github.event.client_payload.winner, ',') }}
         for i in "${win[@]}"; do
           python qpokemon_team-stats.py "$i" "yes"
         done
