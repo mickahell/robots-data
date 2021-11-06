@@ -38,12 +38,7 @@ def team_stats(csv, pokemon, has_win):
         print("CSV doesn't exist !")
 
 
-print("arg win : ", sys.argv[1])
-# print("arg win : ", sys.argv[2])
-
-# for i in sys.argv[1]:
-#    team_stats(csv="qpokemon/team_stats.csv", pokemon=i, has_win=True)
-# for i in sys.argv[2]:
-#    team_stats(csv="qpokemon/team_stats.csv", pokemon=i, has_win=False)
+print("Pokemon : ", sys.argv[1])
+print("has win ? ", sys.argv[2])
 
 team_stats(csv="qpokemon/team_stats.csv", pokemon=sys.argv[1], has_win=sys.argv[2])
