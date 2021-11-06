@@ -33,7 +33,9 @@ jobs:
 
     - name: preview
       run: |
-        echo ${{ github.event.client_payload.winner }}
+        for i in "${{ github.event.client_payload.winner[@] }}"; do
+          echo "$i"
+        done
 
     - name: Update csv
       run: |
