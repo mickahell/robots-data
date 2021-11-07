@@ -41,4 +41,4 @@ def team_stats(csv, pokemon, has_win):
 print("Pokemon : ", sys.argv[1])
 print("has win ? ", sys.argv[2])
 
-team_stats(csv="qpokemon/team_stats.csv", pokemon=sys.argv[1], has_win=sys.argv[2])
+team_stats(csv="qpokemon/data/team_stats.csv", pokemon=sys.argv[1], has_win=sys.argv[2])
