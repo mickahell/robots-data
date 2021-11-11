@@ -9,20 +9,15 @@ def stats(csv, winner):
     date_x = datetime.datetime.now()
     date_day = str(date_x.month) + '-' + str(date_x.year)
 
-    robot_csv = []
-    human_csv = []
-    date_csv = []
-
     ##################################################################################
     # CSV exist
     if path.exists(file_csv):
 
-        csv_file = pd.read_csv(file_csv, header=None)
-
-        for i in range(len(csv_file[0])):
-            robot_csv.append(csv_file[0][i])
-            human_csv.append(csv_file[1][i])
-            date_csv.append(csv_file[2][i])
+        csv_file = pd.read_csv(file_csv)
+        
+        robot_csv = csv_file["robot"].tolist()
+        human_csv = csv_file["human"].tolist()
+        date_csv = csv_file["date"].tolist()
 
         test = 0
         for i in range(len(date_csv)):
@@ -44,7 +39,7 @@ def stats(csv, winner):
 
         csv_file = {'robot': robot_csv, 'human': human_csv, 'date': date_csv}
         df = pd.DataFrame(csv_file)
-        df.to_csv(file_csv, index=False, header=None)
+        df.to_csv(file_csv, index=False, header=["robot", "human", "date"])
 
     ##################################################################################
     # CSV doesn't exist
