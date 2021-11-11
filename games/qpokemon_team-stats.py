@@ -6,20 +6,15 @@ import pandas as pd
 def team_stats(csv, pokemon, has_win):
     file_csv = csv
 
-    pokemon_csv = []
-    win_csv = []
-    loose_csv = []
-
     ##################################################################################
     # CSV exist
     if path.exists(file_csv):
 
-        csv_file = pd.read_csv(file_csv, header=None)
-
-        for data in range(len(csv_file[0])):
-            pokemon_csv.append(csv_file[0][data])
-            win_csv.append(csv_file[1][data])
-            loose_csv.append(csv_file[2][data])
+        csv_file = pd.read_csv(file_csv)
+        
+        pokemon_csv = csv_file["pokemon"].tolist()
+        win_csv = csv_file["win"].tolist()
+        loose_csv = csv_file["loo"].tolist()
 
         for i in range(len(pokemon_csv)):
             if pokemon == pokemon_csv[i]:
@@ -30,7 +25,7 @@ def team_stats(csv, pokemon, has_win):
 
         csv_file = {"pokemon": pokemon_csv, "win": win_csv, "loose": loose_csv}
         df = pd.DataFrame(csv_file)
-        df.to_csv(file_csv, index=False, header=None)
+        df.to_csv(file_csv, index=False, header=["pokemon", "win", "loo"])
 
     ##################################################################################
     # CSV doesn't exist
