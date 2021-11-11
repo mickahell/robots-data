@@ -49,4 +49,4 @@ jobs:
       run: git pull
     - uses: stefanzweifel/git-auto-commit-action@v4
       with:
-        commit_message: Update stats for ${{ github.event.client_payload.game }}
+        commit_message: Update stats for Qpokemon team
