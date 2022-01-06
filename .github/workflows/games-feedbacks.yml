@@ -34,7 +34,7 @@ jobs:
         ---
         "
         
-        sed -i "1 i\$feed" "${{ github.event.client_payload.subject }}".txt
+        echo "s{feed}" | cat - "${{ github.event.client_payload.subject }}".txt > temp && mv temp "${{ github.event.client_payload.subject }}".txt
         
     - name: Pull modif
       run: git pull
