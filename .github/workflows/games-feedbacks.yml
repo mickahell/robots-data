@@ -35,12 +35,12 @@ jobs:
       run: |
         cd games/feedbacks
         read -d '' feed <<BLOCK
-date="$(date '+%Y-%m-%d')"
-subject="${{ github.event.client_payload.subject }}"
-content="${{ github.event.client_payload.content }}"
----
+          date="$(date '+%Y-%m-%d')"
+          subject="${{ github.event.client_payload.subject }}"
+          content="${{ github.event.client_payload.content }}"
+          ---
 
-BLOCK
+          BLOCK
         sed -i "1 i\$feed" "${{ github.event.client_payload.subject }}".txt
         
     - name: Pull modif
