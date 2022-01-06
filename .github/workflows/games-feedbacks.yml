@@ -26,13 +26,15 @@ jobs:
     - name: Add feedback
       run: |
         cd games/feedbacks
-        feed="date=$(date '+%Y-%m-%d')
+        date_today=$(date '+%Y-%m-%d')
+        
+        feed="date=${date_today}
         subject=${{ github.event.client_payload.subject }}
         content=${{ github.event.client_payload.content }}
         ---
         "
         
-        sed -i "1 i\${{feed}}" "${{ github.event.client_payload.subject }}".txt
+        sed -i "1 i\${feed}" "${{ github.event.client_payload.subject }}".txt
         
     - name: Pull modif
       run: git pull
