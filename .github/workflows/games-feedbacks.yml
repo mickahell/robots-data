@@ -14,7 +14,7 @@ on:
         default: ''
         
 jobs:
-  update-stats:
+  add-feedbacks:
     name: Update ${{ github.event.client_payload.subject }} feedbacks
     concurrency: ci-games_feedbacks
     runs-on: ubuntu-latest
@@ -22,26 +22,17 @@ jobs:
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0 # otherwise, there would be errors pushing refs to the destination repository.
-    - name: Set up Python ${{ env.python-version }}
-      uses: actions/setup-python@v2
-      with:
-        python-version: "3.9"
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install pandas
         
-    - name: Update csv
+    - name: Add feedback
       run: |
         cd games/feedbacks
-        read -d '' feed <<BLOCK
-          date="$(date '+%Y-%m-%d')"
-          subject="${{ github.event.client_payload.subject }}"
-          content="${{ github.event.client_payload.content }}"
-          ---
-
-          BLOCK
-        sed -i "1 i\$feed" "${{ github.event.client_payload.subject }}".txt
+        feed="date=$(date '+%Y-%m-%d')
+        subject=${{ github.event.client_payload.subject }}
+        content=${{ github.event.client_payload.content }}
+        ---
+        "
+        
+        sed -i "1 i\${{feed}}" "${{ github.event.client_payload.subject }}".txt
         
     - name: Pull modif
       run: git pull
