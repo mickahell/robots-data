@@ -1,0 +1,50 @@
+name: Feedbacks games
+
+on:
+  repository_dispatch:
+    types: [games-feedbacks]
+    inputs:
+      subject:
+        description: 'Subject of the feedbacks'
+        required: true
+        default: ''
+      content:
+        description: 'Content of the feedbacks'
+        required: true
+        default: ''
+        
+jobs:
+  update-stats:
+    name: Update ${{ github.event.client_payload.subject }} feedbacks
+    concurrency: ci-games_feedbacks
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0 # otherwise, there would be errors pushing refs to the destination repository.
+    - name: Set up Python ${{ env.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: "3.9"
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pandas
+        
+    - name: Update csv
+      run: |
+        cd games/feedbacks
+        read -d '' feed <<BLOCK
+date="$(date '+%Y-%m-%d')"
+subject="${{ github.event.client_payload.subject }}"
+content="${{ github.event.client_payload.content }}"
+---
+
+BLOCK
+        sed -i "1 i\$feed" "${{ github.event.client_payload.subject }}".txt
+        
+    - name: Pull modif
+      run: git pull
+    - uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: Update feedbacks for ${{ github.event.client_payload.subject }}
