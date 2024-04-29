@@ -1,0 +1,43 @@
+name: Feedbacks games
+
+on:
+  repository_dispatch:
+    types: [games-feedbacks]
+    inputs:
+      subject:
+        description: 'Subject of the feedbacks'
+        required: true
+        default: ''
+      content:
+        description: 'Content of the feedbacks'
+        required: true
+        default: ''
+        
+jobs:
+  add-feedbacks:
+    name: Update ${{ github.event.client_payload.subject }} feedbacks
+    concurrency: ci-games_feedbacks
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0 # otherwise, there would be errors pushing refs to the destination repository.
+        
+    - name: Add feedback
+      run: |
+        cd games/feedbacks
+        date_today=$(date '+%Y-%m-%d')
+        
+        feed="date=${date_today}
+        subject=${{ github.event.client_payload.subject }}
+        content=${{ github.event.client_payload.content }}
+        ---
+        "
+        
+        echo "${feed}" | cat - "${{ github.event.client_payload.subject }}".txt > temp && mv temp "${{ github.event.client_payload.subject }}".txt
+        
+    - name: Pull modif
+      run: git pull
+    - uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: Update feedbacks for ${{ github.event.client_payload.subject }}
