@@ -24,8 +24,11 @@ on:
 jobs:
   update-data:
     name: Update watchy ${{ github.event.client_payload.data-name }} data
-    concurrency: ci-watchy-${{ github.event.client_payload.data-name }}
+    concurrency:
+      group: ci-watchy-${{ github.event.client_payload.data-name }}
+      cancel-in-progress: false
     runs-on: ubuntu-latest
+    timeout-minutes: 1
     steps:
     - uses: actions/checkout@v4
       with:
