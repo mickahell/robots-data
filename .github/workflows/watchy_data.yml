@@ -33,12 +33,11 @@ jobs:
     - uses: actions/checkout@v4
       with:
         fetch-depth: 0 # otherwise, there would be errors pushing refs to the destination repository.
-    - uses: ahmadnassri/action-workflow-queue@v1
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r watchy/requirements.txt
-
+    - uses: ahmadnassri/action-workflow-queue@v1
     - name: Pull modif
       run: git pull
 
