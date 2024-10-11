@@ -36,7 +36,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r watchy/requirements.txt
+        python -m pip install -r watchy/requirements.txt
     - uses: ahmadnassri/action-workflow-queue@v1
     - name: Pull modif
       run: git pull
