@@ -33,6 +33,13 @@ jobs:
     - uses: actions/checkout@v4
       with:
         fetch-depth: 0 # otherwise, there would be errors pushing refs to the destination repository.
+    - name: Show data
+      run: |
+        echo "data-name : ${{ github.event.client_payload.data-name }}"
+        echo "date : ${{ github.event.client_payload.date }}"
+        echo "hour : ${{ github.event.client_payload.hour }}"
+        echo "data : ${{ github.event.client_payload.data }}"
+
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
