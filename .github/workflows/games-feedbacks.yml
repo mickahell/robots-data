@@ -17,7 +17,7 @@ jobs:
   add-feedbacks:
     name: Update ${{ github.event.client_payload.subject }} feedbacks
     concurrency: ci-games_feedbacks
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v2
       with:
