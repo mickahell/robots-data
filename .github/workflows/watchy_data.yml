@@ -27,7 +27,7 @@ jobs:
     #concurrency:
     #  group: ci-watchy-${{ github.event.client_payload.data-name }}
     #  cancel-in-progress: false
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     timeout-minutes: 3
     steps:
     - uses: actions/checkout@v4
@@ -35,7 +35,7 @@ jobs:
         fetch-depth: 0 # otherwise, there would be errors pushing refs to the destination repository.
     - name: Install dependencies
       run: |
-        pip install --upgrade pip
+        python -m pip install --upgrade pip
         pip install -r watchy/requirements.txt
     - uses: ahmadnassri/action-workflow-queue@v1
     - name: Pull modif
