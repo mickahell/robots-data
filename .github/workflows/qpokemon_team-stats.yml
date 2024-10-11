@@ -1,4 +1,4 @@
-name: Qpokemon team stats
+vname: Qpokemon team stats
 
 on:
   repository_dispatch:
@@ -17,7 +17,7 @@ jobs:
   update-stats:
     name: Update Qpokemon team stats
     concurrency: ci-qpokemon
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v2
       with:
